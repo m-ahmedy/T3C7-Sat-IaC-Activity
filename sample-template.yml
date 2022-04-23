@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Resources:
+  EC2InstanceSecGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH from anywhere
+      VpcId: vpc-7f2d7907
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.micro
+      ImageId: ami-0892d3c7ee96c0bf7
+      SecurityGroupIds:
+        - !Ref EC2InstanceSecGroup
+      KeyName: iac-t3c7-sat-key
